@@ -25,6 +25,11 @@ int main(int argc, char **argv, char **envp) {
     }
 
     chdir(argv[1]);
-    execve(path, argv + 2, envp);
-    return -1;
+
+    int status = execve(path, argv + 2, envp);
+
+    if (status < 0)
+        perror("execve");
+
+    return status;
 }
