@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+#include <limits.h>
 
 int main(int argc, char **argv, char **envp) {
-    char path[256];
+    char path[PATH_MAX];
 
     if (argc < 3) {
         fprintf(stderr, "usage: %s WORKING_DIR PROGRAM [ARGS...]\n", argv[0]);
