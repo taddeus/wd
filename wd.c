@@ -11,13 +11,17 @@ int main(int argc, char **argv, char **envp) {
         return -1;
     }
 
-    if (!getcwd(path, sizeof (path) - strlen(argv[2]) - 2)) {
-        perror("getcwd");
-        return -1;
-    }
+    if (argv[2][0] == '/') {
+        strncpy(path, argv[2], sizeof (path) - 1);
+    } else {
+        if (!getcwd(path, sizeof (path) - strlen(argv[2]) - 2)) {
+            perror("getcwd");
+            return -1;
+        }
 
-    strcat(path, "/");
-    strcat(path, argv[2]);
+        strcat(path, "/");
+        strcat(path, argv[2]);
+    }
 
     if (access(path, F_OK) < 0) {
         perror(path);
